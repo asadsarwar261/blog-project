@@ -1,0 +1,156 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
+}
+
+body {
+	line-height: 1.6;
+	margin: 20px;
+}
+
+#heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+#heading-left h1 {
+	font-size: 24px;
+}
+
+#heading-right {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+#heading-right form,
+#heading-right a {
+	margin-bottom: 10px;
+}
+
+#heading-right-row1 {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+#heading-right-row1 form,
+#heading-right-row1 a {
+	margin-right: 10px;
+}
+
+input[type="text"] {
+	padding: 5px;
+	font-size: 14px;
+	width: 200px;
+	border: 1px solid #ccc;
+}
+
+button,
+input[type="submit"] {
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	background-color: #f0f0f0;
+	cursor: pointer;
+}
+
+button:hover,
+input[type="submit"]:hover {
+	background-color: #e0e0e0;
+}
+
+form#filterForm {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+fieldset {
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
+legend {
+	font-size: 14px;
+	margin-bottom: 5px;
+}
+
+details summary {
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.checkbox-container {
+	margin-top: 5px;
+}
+
+.checkbox-container label {
+	display: block;
+	font-size: 14px;
+	margin: 2px 0;
+}
+
+select {
+	padding: 5px;
+	border: 1px solid #ccc;
+	margin-right: 10px;
+}
+
+#content {
+	width: 95%;
+	margin: 20px auto;
+}
+
+.post-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20px;
+}
+
+.excerpt-container {
+	padding: 10px;
+	border: 1px solid #000;
+}
+
+.post-title {
+	font-size: 18px;
+	margin-bottom: 5px;
+}
+
+.post-excerpt {
+	font-size: 14px;
+	color: #333;
+}
+
+.post-excerpt-detail p {
+	font-size: 12px;
+}
+
+.buttons>form {
+	display: flex;
+	flex-direction: column;
+}
+
+#footer {
+	display: flex;
+	justify-content: space-between;
+	font-size: 18px;
+	margin-top: 20px;
+}
+
+#prev,
+#next {
+	position: fixed;
+	bottom: 20px;
+}
+
+#prev {
+	left: 20px;
+}
+
+#next {
+	right: 20px;
+}

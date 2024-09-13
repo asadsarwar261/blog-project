@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Create Post Page</title>
+<link rel="stylesheet" th:href="@{/css/create-post.css}" />
+</head>
+<body>
+	<div id="container">
+		<h1>Create Post</h1>
+
+		<form th:action="@{/save-post}" method="post">
+			<input type="text" id="author" name="author"
+				placeholder="Author Name" required /> 
+				<input type="text" id="title"
+				name="title" placeholder="Post Title" required /> 
+				<input
+				type="text" id="excerpt" name="excerpt"
+				placeholder="Enter the excerpt you want to display" required /> 
+				<input
+				type="text" id="tag" name="tagsList"
+				placeholder="Tags (comma separated)" required />
+
+			<textarea id="content" name="content" required></textarea>
+			<input type="submit" id="publish" value="Publish" />
+
+		</form>
+	</div>
+</body>
+</html>

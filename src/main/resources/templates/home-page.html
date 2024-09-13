@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog Application</title>
+<link rel="stylesheet" th:href="@{/css/home-page.css}" />
+</head>
+<body>
+	<div id="heading">
+		<div id="heading-left">
+			<h1>Blog Application</h1>
+		</div>
+		<div id="heading-right">
+			<div id="heading-right-row1">
+				<form th:action="@{/search}" method="get">
+					<input type="text" name="query" placeholder="Search"
+						th:value="${searchQuery}" />
+					<button type="submit">Search</button>
+				</form>
+
+				<form th:action="@{/showLoginPage}" method="get">
+					<input type="submit" value="Login" />
+				</form>
+
+				<form th:action="@{/register-page}" method="get">
+					<input type="submit" value="SignUp" />
+				</form>
+
+				<!-- Logout option -->
+				<form th:action="@{/logout}" method="post">
+					<input type="submit" value="Logout" />
+				</form>
+			</div>
+
+			<form th:action="@{/home-page}" method="get">
+				<div id="heading-right-row2">
+					<form id="filterForm">
+						<fieldset>
+							<legend>Filter By</legend>
+
+							<!-- Author Filter Dropdown -->
+							<details>
+								<summary>Author</summary>
+								<div class="checkbox-container">
+									<label><input type="checkbox" name="author"
+										value="Author1"> Author1</label><br> <label><input
+										type="checkbox" name="author" value="Author2"> Author2</label><br>
+									<label><input type="checkbox" name="author"
+										value="Author3"> Author3</label>
+								</div>
+							</details>
+
+							<!-- Published Date Filter Dropdown -->
+							<details>
+								<summary>Published Date</summary>
+								<div class="checkbox-container">
+									<label><input type="checkbox" name="publishedAt"
+										value="2023-09-01"> September 1, 2023</label><br> <label><input
+										type="checkbox" name="publishedAt" value="2023-08-15">
+										August 15, 2023</label><br> <label><input type="checkbox"
+										name="publishedAt" value="2023-07-10"> July 10, 2023</label>
+								</div>
+							</details>
+
+							<!-- Tags Filter Dropdown -->
+							<details>
+								<summary>Tags</summary>
+								<div class="checkbox-container">
+									<label><input type="checkbox" name="tags"
+										value="Technology"> Technology</label><br> <label><input
+										type="checkbox" name="tags" value="Science"> Science</label><br>
+									<label><input type="checkbox" name="tags"
+										value="Education"> Education</label>
+								</div>
+							</details>
+
+						</fieldset>
+
+						<button type="submit">Apply Filters</button>
+					</form>
+					<select name="sortField" id="sort" th:value="${sortField}">
+						<option value="" disabled selected>Sort By</option>
+						<option th:value="publishedAt" th:text="'Published Date'">
+							Published Date</option>
+					</select> <select name="sortDirection" id="sortDirection"
+						th:value="${sortDirection}">
+						<option th:value="desc" th:text="'Newest'">Newest</option>
+						<option th:value="asc" th:text="'Oldest'">Oldest</option>
+					</select>
+
+
+					<button type="submit">Apply</button>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+	<form th:action="@{/add-post}" method="get">
+		<input type="submit" name="add-post" id="add-post"
+			value="Create Post" />
+	</form>
+
+	<!-- 
+	User:
+	<span sec:authentication="principal.username"></span>
+ -->
+
+
+	<div id="content">
+		<div class="post-grid">
+			<div class="excerpt-container" th:each="post : ${postlist}">
+				<div class="post-content">
+					<h2 class="post-title" th:text="${post.title}">Blog Post Title</h2>
+					<p class="post-excerpt" th:text="${post.excerpt}">This is a
+						excerpt of the blog post.</p>
+					<a th:href="@{/post/{id} (id=${post.id}) }">Read More...</a>
+					<div class="post-excerpt-detail">
+						<p>
+							<span>Author: </span> <span th:text="${post.author}">Author:</span>
+						</p>
+						<p>
+							<span>Tags: 
+								<span th:each="tag, iterStat : ${post.tags}">
+								    <span th:text="${tag.name}"></span>
+								    <span th:if="${!iterStat.last}">,</span>
+								</span>
+							</span>
+						</p>
+						<p>
+							<span>Published Date: </span> <span th:text="${post.publishedAt}">dd/mm/yy</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer">
+		<a
+			th:href="@{/home-page(pageNumber=${pageNumber != null ? pageNumber - 1 : 0}, pageSize=${pageSize != null ? pageSize : 10}, sortDirection=${sortDirection != null ? sortDirection : 'asc'})}"
+			th:if="${pageNumber != null and pageNumber > 0}" id="prev">Previous</a>
+
+		<span th:text="${pageNumber != null ? pageNumber + 1 : 1}">1</span> <a
+			th:href="@{/home-page(pageNumber=${pageNumber != null ? pageNumber + 1 : 1}, pageSize=${pageSize != null ? pageSize : 10}, sortDirection=${sortDirection != null ? sortDirection : 'asc'})}"
+			th:if="${hasNextPage}" id="next">Next</a>
+	</div>
+
+
+</body>
+</html>

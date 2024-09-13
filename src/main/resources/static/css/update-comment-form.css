@@ -1,0 +1,27 @@
+form {
+	max-width: 600px;
+	margin: 20px auto;
+	padding: 20px;
+	border: 1px solid #000;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+input, textarea {
+	width: 95%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #000;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+div {
+	margin-bottom: 10px;
+}

@@ -1,0 +1,150 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
+}
+
+body {
+	background-color: #f5f5f5; /* Slightly warmer background color */
+	color: #333; /* Dark text color for readability */
+}
+
+#post-container {
+	max-width: 750px; /* Maximum width for the post container */
+	margin: 20px auto; /* Centering and margin around the container */
+	padding: 15px; /* Padding inside the container */
+	background-color: #fff; /* White background for the post */
+	border: 1px solid #ddd; /* Light border for subtle separation */
+	border-radius: 4px; /* Rounded corners for a modern look */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+	overflow: hidden; /* Ensures child elements don't overflow the container */
+}
+
+.top-heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd; /* Border at the bottom */
+	margin-bottom: 15px; /* Margin below top-heading */
+}
+
+.top-heading p {
+	font-size: 16px;
+}
+
+.top-heading a {
+	color: #333; /* Dark color for the login link */
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.top-heading a:hover {
+	text-decoration: underline; /* Underline on hover */
+}
+
+.post-heading {
+	margin-bottom: 15px; /* Margin below the post heading */
+}
+
+.post-heading h1 {
+	font-size: 22px; /* Font size for the post title */
+	margin-bottom: 8px; /* Margin below the title */
+}
+
+.post-heading div {
+	font-size: 14px; /* Font size for the author and date */
+	color: #666; /* Slightly lighter color for metadata */
+}
+
+#post-content {
+	margin-bottom: 20px; /* Margin below the post content */
+}
+
+#post-content p {
+	font-size: 16px; /* Font size for the post content */
+	line-height: 1.5; /* Line height for readability */
+	word-wrap: break-word; /* Ensures long words break properly */
+}
+
+#post-tags {
+	font-size: 14px; /* Font size for tags */
+	color: #666; /* Color for tags */
+}
+
+#post-tags span {
+	margin-right: 5px; /* Space between tags */
+}
+
+.btn-section {
+	display: flex;
+	justify-content: flex-start; /* Align buttons to the start */
+	gap: 10px; /* Space between buttons */
+	margin-top: 15px; /* Margin above buttons section */
+}
+
+.action-btns {
+	display: inline-flex; /* Ensure buttons are side by side */
+}
+
+.action-btns input[type="submit"] {
+	padding: 8px 15px; /* Padding inside buttons */
+	font-size: 14px; /* Font size for buttons */
+	border: 1px solid #ccc; /* Light border for buttons */
+	background-color: #fff; /* White background for buttons */
+	color: #333; /* Dark text color for buttons */
+	cursor: pointer; /* Pointer cursor on hover */
+	border-radius: 4px; /* Rounded corners for buttons */
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for buttons */
+	transition: background-color 0.2s, border-color 0.2s; /* Smooth transition */
+}
+
+.action-btns input[type="submit"]:hover {
+	background-color: #f0f0f0; /* Light gray background on hover */
+	border-color: #bbb; /* Slightly darker border on hover */
+}
+
+#comments-container {
+	margin-top: 20px; /* Margin above comments section */
+}
+
+.comment {
+	padding: 10px; /* Padding inside comment boxes */
+	border-bottom: 1px solid #ddd; /* Border between comments */
+}
+
+.comment:last-child {
+	border-bottom: none; /* Remove border from the last comment */
+}
+
+.comment-content p {
+	margin-bottom: 8px; /* Margin below paragraphs */
+	font-size: 14px; /* Font size for comments */
+	line-height: 1.4; /* Line height for readability */
+	word-wrap: break-word; /* Ensures long words break properly */
+}
+
+.comment-btn-section {
+	display: flex;
+	justify-content: flex-start; /* Align buttons to the start */
+	gap: 10px; /* Space between buttons */
+	margin-top: 10px; /* Margin above buttons section */
+}
+
+.comment-action-button {
+	padding: 6px 12px; /* Padding inside buttons */
+	font-size: 14px; /* Font size for buttons */
+	border: 1px solid #ccc; /* Light border for buttons */
+	background-color: #fff; /* White background for buttons */
+	color: #333; /* Dark text color for buttons */
+	cursor: pointer; /* Pointer cursor on hover */
+	border-radius: 4px; /* Rounded corners for buttons */
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for buttons */
+	transition: background-color 0.2s, border-color 0.2s; /* Smooth transition */
+}
+
+.comment-action-button:hover {
+	background-color: #f0f0f0; /* Light gray background on hover */
+	border-color: #bbb; /* Slightly darker border on hover */
+}
