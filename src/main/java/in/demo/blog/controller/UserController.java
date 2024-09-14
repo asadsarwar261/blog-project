@@ -2,6 +2,7 @@ package in.demo.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import in.demo.blog.entity.User;
@@ -13,6 +14,16 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+//	@GetMapping("/")
+//    public String firstPage() {
+//        return "home-page";
+//    }
+
+	@GetMapping("/register-page")
+	public String getRegisterPage() {
+		return "register-page";
+	}
+
 	@PostMapping("/saveUser")
 	public String saveNewUser(@ModelAttribute User user) {
 
@@ -20,7 +31,5 @@ public class UserController {
 		userService.saveUserInfo(user);
 		return "redirect:/login-page";
 	}
-	
-	
 
 }

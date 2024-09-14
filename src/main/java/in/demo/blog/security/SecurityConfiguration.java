@@ -36,8 +36,8 @@ public class SecurityConfiguration {
 						.requestMatchers("/post/**", "/css/**", "/register-page", "/view-post-page", "/search",
 								"/filter", "/sort", "/comment-post/**", "/submit-comment","/home-page","/saveUser")
 						.permitAll()
-						.requestMatchers("/add-post", "/edit-post/**", "/delete-post/**","/save-post/**","/update-post/**").hasAuthority("AUTHOR")
-						.requestMatchers("/add-post", "/edit-post/**", "/delete-post/**","/save-post/**","/update-post/**").hasAuthority("ADMIN")
+						.requestMatchers("/add-post", "/edit-post/**", "/delete-post/**","/save-post/**","/update-post/**").hasAnyAuthority("AUTHOR", "ADMIN")
+//						.requestMatchers("/add-post", "/edit-post/**", "/delete-post/**","/save-post/**","/update-post/**").hasAuthority("ADMIN")
 						.requestMatchers( "/delete-comment/**", "/update-comment/**")
 						.authenticated()
 						.anyRequest().authenticated() 

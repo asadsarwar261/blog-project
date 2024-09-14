@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+ -->
 
 <head>
 <meta charset="UTF-8" />
@@ -99,13 +102,20 @@
 	</div>
 
 	<form th:action="@{/add-post}" method="get">
-		<input type="submit" name="add-post" id="add-post"
-			value="Create Post" />
+		<input type="submit" name="add-post" id="add-post" value="Create Post" />
 	</form>
 
 	<!-- 
 	User:
 	<span sec:authentication="principal.username"></span>
+ -->
+
+	<!-- 
+
+<div sec:authorize="isAuthenticated()" class="username-display" style="font-size: 22px; font-weight: bold;">
+    <span th:text="${user != null ? (user.role != null && user.role == 'ADMIN' ? 'Admin: ' + (user.email != null ? user.email : 'No Email') : (user.email != null ? user.email : 'No Email')) : 'No User'}"></span>
+</div>
+
  -->
 
 
@@ -122,11 +132,10 @@
 							<span>Author: </span> <span th:text="${post.author}">Author:</span>
 						</p>
 						<p>
-							<span>Tags: 
-								<span th:each="tag, iterStat : ${post.tags}">
-								    <span th:text="${tag.name}"></span>
-								    <span th:if="${!iterStat.last}">,</span>
-								</span>
+							<span>Tags: <span th:each="tag, iterStat : ${post.tags}">
+									<span th:text="${tag.name}"></span> <span
+									th:if="${!iterStat.last}">,</span>
+							</span>
 							</span>
 						</p>
 						<p>

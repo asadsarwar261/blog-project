@@ -12,11 +12,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import in.demo.blog.entity.Post;
 import in.demo.blog.entity.Tag;
+import in.demo.blog.entity.User;
 import in.demo.blog.repository.PostRepository;
 import in.demo.blog.repository.TagRepository;
 
@@ -29,11 +32,17 @@ public class PostService {
 	@Autowired
 	private TagRepository tagRepository;
 
+	@Autowired
+	private UserService userService;
+
 	public void viewHomePage(Integer pageNumber, Integer pageSize, String sortField, String sortDirection,
 			Model model) {
 
 		Page<Post> postList = getListOfPost(pageNumber, pageSize, sortField, sortDirection);
 		List<Tag> listOfTag = tagRepository.findAll();
+
+//		String userEmail = userDetails.getUsername();
+//		User user = userService.findByEmail(userEmail);
 
 		StringBuilder listOfTagInString = new StringBuilder();
 		for (Tag tag : listOfTag) {
@@ -43,6 +52,7 @@ public class PostService {
 		String listOfTagString = listOfTagInString.toString();
 		boolean hasNextPage = checkNextPage(pageNumber, pageSize);
 
+//		model.addAttribute("user", user;
 		model.addAttribute("postlist", postList);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageSize", pageSize);

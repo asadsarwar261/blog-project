@@ -11,10 +11,6 @@
 		<div class="top-heading">
 			<p>Blog Application</p>
 
-			<form th:action="@{/showLoginPage}" method="get" class="action-btns">
-				<input type="submit" name="login" value="Login" />
-			</form>
-
 		</div>
 
 		<div class="post-heading">
@@ -53,13 +49,6 @@
 			</form>
 			 -->
 			 
-			 <!-- 
-		        <div>
-		            <label for="tags">Tags (comma separated):</label>
-		            <input type="text" id="tags" name="tags" th:value="${#lists.join(post.tags, ', ')}" />
-		        </div>
-			  -->
-
 			<form th:action="@{/edit-post/{id}(id=${post.id})}" method="get"
 				class="action-btns">
 				<input type="submit" name="update" value="Update" />

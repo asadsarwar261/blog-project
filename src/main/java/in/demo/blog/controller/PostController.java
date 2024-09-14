@@ -5,7 +5,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import in.demo.blog.entity.Post;
-import in.demo.blog.entity.Tag;
 import in.demo.blog.entity.User;
 import in.demo.blog.service.PostService;
 import in.demo.blog.service.UserService;
@@ -50,15 +48,10 @@ public class PostController {
 //		return "login-page";
 //	}
 
-	@GetMapping("/register-page")
-	public String getRegisterPage() {
-		return "register-page";
-	}
-
-	@PostMapping("/register-page")
-	public String handleRegisterPage() {
-		return "register-page";
-	}
+//    @PostMapping("/register-page")
+//    public String handleRegisterPage() {
+//        return "register-page";
+//    }
 
 	@GetMapping("/post/{id}")
 	public String viewPost(@PathVariable("id") Long postId, Model model) {
@@ -115,8 +108,6 @@ public class PostController {
 	@PostMapping("/update-post/{id}")
 	public String updatePost(@PathVariable("id") Long postId, @ModelAttribute("post") Post post,
 			@AuthenticationPrincipal UserDetails userDetails) {
-//			@ModelAttribute Tag tags,
-//		String 
 
 		String currentUserEmail = userDetails.getUsername();
 		User currentUser = userService.findByEmail(currentUserEmail);
@@ -139,7 +130,7 @@ public class PostController {
 
 		Post post = postService.getPostById(postId);
 
-		if (!post.getAuthor().equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")) {
+		if (!post.getAuthor().equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN") && !currentUser.getUserRole().equals("AUTHOR"))  {
 			return "temp";
 		}
 
@@ -172,5 +163,4 @@ public class PostController {
 //        model.addAttribute("tags", tags);
 //        return "post-list";
 //    }
-
 }
