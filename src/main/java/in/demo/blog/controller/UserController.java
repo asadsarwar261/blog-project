@@ -14,10 +14,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-//	@GetMapping("/")
-//    public String firstPage() {
-//        return "home-page";
-//    }
+	@GetMapping("/")
+    public String firstPage() {
+        return "redirect:/home-page";
+    }
 
 	@GetMapping("/register-page")
 	public String getRegisterPage() {

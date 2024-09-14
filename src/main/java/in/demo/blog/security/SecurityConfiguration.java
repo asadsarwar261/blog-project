@@ -33,7 +33,7 @@ public class SecurityConfiguration {
 		http
 		// Define access rules
 				.authorizeHttpRequests(configurer -> configurer
-						.requestMatchers("/post/**", "/css/**", "/register-page", "/view-post-page", "/search",
+						.requestMatchers("/","/post/**", "/css/**", "/register-page", "/view-post-page", "/search",
 								"/filter", "/sort", "/comment-post/**", "/submit-comment","/home-page","/saveUser")
 						.permitAll()
 						.requestMatchers("/add-post", "/edit-post/**", "/delete-post/**","/save-post/**","/update-post/**").hasAnyAuthority("AUTHOR", "ADMIN")
