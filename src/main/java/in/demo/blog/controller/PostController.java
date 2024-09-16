@@ -44,7 +44,6 @@ public class PostController {
 
 		postService.viewHomePage(pageNumber, pageSize, sortField, sortDirection, model);
 		
-		
 		Set<User> listOfUsers=new HashSet<>();
 		for (Post post : postService.findAll()) {
 			listOfUsers.add(post.getAuthor());

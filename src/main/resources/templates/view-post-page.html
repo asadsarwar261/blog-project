@@ -22,7 +22,7 @@
 		<div class="post-heading">
 			<h1 th:text="${post.title}">Blog Title</h1>
 			<div>
-				<span th:text="${post.author}">AuthorName</span>, <span
+				<span th:text="${post.author.name}">AuthorName</span>, <span
 					th:text="${post.createdAt}">Date</span>
 			</div>
 		</div>
