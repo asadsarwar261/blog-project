@@ -37,7 +37,6 @@ public class SecurityConfiguration {
 								"/filter", "/sort", "/comment-post/**", "/submit-comment","/home-page","/saveUser")
 						.permitAll()
 						.requestMatchers("/add-post", "/edit-post/**", "/delete-post/**","/save-post/**","/update-post/**").hasAnyAuthority("AUTHOR", "ADMIN")
-//						.requestMatchers("/add-post", "/edit-post/**", "/delete-post/**","/save-post/**","/update-post/**").hasAuthority("ADMIN")
 						.requestMatchers( "/delete-comment/**", "/update-comment/**")
 						.authenticated()
 						.anyRequest().authenticated() 
@@ -49,6 +48,11 @@ public class SecurityConfiguration {
 						.permitAll())
 				.logout(logout -> logout
 						.permitAll());
+	//        .logout(logout -> logout
+	//                .logoutUrl("/logout")
+	//                .logoutSuccessUrl("/home-page")
+	//                .permitAll()
+	//            )
 		
 		return http.build();
 	}

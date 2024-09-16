@@ -11,8 +11,11 @@
 		<h1>Create Post</h1>
 
 		<form th:action="@{/save-post}" method="post">
-			<input type="text" id="author" name="author"
-				placeholder="Author Name" required /> 
+			<input type="text" id="author"  th:value="${currentUserName}"
+				placeholder="Author Name" disabled /> 
+				
+			<input type="hidden" name="authorName" th:value="${currentUserName}" /> 
+				
 				<input type="text" id="title"
 				name="title" placeholder="Post Title" required /> 
 				<input

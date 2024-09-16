@@ -5,10 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import in.demo.blog.entity.User;
 
-
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<User, Long> {
 
 	User findByEmail(String email);
+
+	User findUserByName(String authorName);
 
 }

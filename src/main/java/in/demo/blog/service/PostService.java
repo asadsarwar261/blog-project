@@ -32,27 +32,20 @@ public class PostService {
 	@Autowired
 	private TagRepository tagRepository;
 
-	@Autowired
-	private UserService userService;
-
 	public void viewHomePage(Integer pageNumber, Integer pageSize, String sortField, String sortDirection,
 			Model model) {
 
 		Page<Post> postList = getListOfPost(pageNumber, pageSize, sortField, sortDirection);
 		List<Tag> listOfTag = tagRepository.findAll();
 
-//		String userEmail = userDetails.getUsername();
-//		User user = userService.findByEmail(userEmail);
-
 		StringBuilder listOfTagInString = new StringBuilder();
 		for (Tag tag : listOfTag) {
 			listOfTagInString.append(tag.getName()).append(",");
 		}
 
-		String listOfTagString = listOfTagInString.toString();
+		listOfTagInString.toString();
 		boolean hasNextPage = checkNextPage(pageNumber, pageSize);
 
-//		model.addAttribute("user", user;
 		model.addAttribute("postlist", postList);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageSize", pageSize);
@@ -123,18 +116,7 @@ public class PostService {
 		List<Post> paginatedPosts = combinedPostList.subList(start, end);
 
 		return new PageImpl<>(paginatedPosts, pageable, combinedPostList.size());
-//		return getPageRange(new ArrayList<>(setOfPosts), pageNumber);
-//		return getPageRange(new ArrayList<>(setOfPosts), pageNumber);
-
-//	    return new PageImpl<>(paginatedPosts, pageable, combinedPostList.size());
 	}
-
-//	private List<Post> getPageRange(List<Post> listPost, int pageNumber) {
-//
-//		int beginPage = pageNumber * 10;
-//		int endPage = Math.min(beginPage + 10, listPost.size());
-//		return listPost.subList(beginPage, endPage);
-//	}
 
 	public void searchOperation(String searchQuery, Model model, int pageNumber, int pageSize) {
 
@@ -145,14 +127,34 @@ public class PostService {
 		model.addAttribute("pageSize", pageSize);
 	}
 
-	public int getTotalSearchPage(String searchQuery) {
+	public Page<Post> filterPosts(List<String> authors, List<String> tagIds, String date, Integer pageNumber,
+			Integer pageSize) {
 
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		LocalDate publishedDate = null;
+		if (date != null && !date.trim().isEmpty()) {
+			publishedDate = LocalDate.parse(date);
+		}
+
+		if (tagIds != null && !tagIds.isEmpty() && publishedDate != null && authors != null && !authors.isEmpty()) {
+			return postRepository.findByTagsNameInAndPublishedAtAndAuthorNameIn(tagIds, publishedDate, authors,
+					pageable);
+		} else if (tagIds != null && !tagIds.isEmpty()) {
+			return postRepository.findByTagsNameIn(tagIds, pageable);
+		} else if (publishedDate != null) {
+			return postRepository.findByPublishedAt(publishedDate, pageable);
+		} else if (authors != null && !authors.isEmpty()) {
+			return postRepository.findByAuthorNameIn(authors, pageable);
+		} else {
+			return postRepository.findAll(pageable);
+		}
+	}
+
+	public int getTotalSearchPage(String searchQuery) {
 		return (int) Math.ceil((double) findPage(searchQuery, 0, 10).getSize() / 10);
 	}
 
 	public Post updatePost(Long postId, Post updatedPost) {
-
-//
 //		StringBuilder listOfTagInString = new StringBuilder();
 //		for (Tag tag : tags) {
 //			listOfTagInString.append(tag.getName()).append(",");
@@ -197,15 +199,7 @@ public class PostService {
 		return tagList;
 	}
 
-//	public List<Post> filterPosts(String author, String publishedDate, String tags) {
-//        if (author != null && !author.isEmpty()) {
-//            return postRepository.findByAuthorContainingIgnoreCase(author);
-//        } else if (publishedDate != null && !publishedDate.isEmpty()) {
-//            LocalDate date = LocalDate.parse(publishedDate);
-//            return postRepository.findByPublishedAt(date);
-//        } else if (tags != null && !tags.isEmpty()) {
-//            return postRepository.findByTagsNameContainingIgnoreCase(tags);
-//        }
-//        return postRepository.findAll();
-//	}
+	public List<Post> findAll() {
+		return postRepository.findAll();
+	}
 }

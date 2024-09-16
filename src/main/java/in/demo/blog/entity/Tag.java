@@ -1,6 +1,7 @@
 package in.demo.blog.entity;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -19,7 +20,6 @@ public class Tag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	private String name;
 
 	@Column(name = "created_at")
@@ -29,22 +29,7 @@ public class Tag {
 	private LocalDate updatedAt;
 
 	@ManyToMany(mappedBy = "tags", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private Set<Post> post;
-
-	public Set<Post> getPost() {
-		return post;
-	}
-
-	public void setPost(Set<Post> post) {
-		this.post = post;
-	}
-
-	public Tag(Long id, String name, LocalDate createdAt, LocalDate updatedAt) {
-		this.id = id;
-		this.name = name;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
+	private Set<Post> post = new HashSet<>();
 
 	public Tag() {
 	}
@@ -79,5 +64,19 @@ public class Tag {
 
 	public void setUpdatedAt(LocalDate updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public Set<Post> getPost() {
+		return post;
+	}
+
+	public void setPost(Set<Post> post) {
+		this.post = post;
+	}
+
+	@Override
+	public String toString() {
+		return "Tag [id=" + id + ", name=" + name + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", post="
+				+ post + "]";
 	}
 }

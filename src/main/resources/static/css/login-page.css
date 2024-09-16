@@ -1,97 +1,97 @@
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	background-color: #f0f0f0; /* Light background for the page */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
 }
 
 #container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 30px; /* Padding around the container */
-	background-color: #fff; /* White background for the form */
-	border: 1px solid #ddd; /* Light border around the container */
-	border-radius: 8px; /* Slightly rounded corners */
-	width: 400px; /* Fixed width for the container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 400px;
 }
 
 h1 {
-	font-size: 28px; /* Larger font size for the heading */
-	margin-bottom: 25px; /* Space below the heading */
-	color: #333; /* Darker text color for readability */
-	text-align: center; /* Center the heading */
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
 }
 
 form {
-	width: 100%;
+  width: 100%;
 }
 
 input[type="text"],
 input[type="password"],
-input[type="email"] { /* Include email inputs for completeness */
-	width: 100%; /* Ensure input fields take full width of the container */
-	padding: 15px; /* Padding inside the input fields */
-	margin-bottom: 20px; /* Space below each input field */
-	font-size: 18px; /* Larger font size for better readability */
-	border: 1px solid #ccc; /* Light border around the input fields */
-	border-radius: 4px; /* Rounded corners for a softer look */
-	box-sizing: border-box; /* Ensure padding and border are included in the width */
-	transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition on focus */
+input[type="email"] {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus,
-input[type="email"]:focus { /* Focus styles for different input types */
-	outline: none; /* Remove default focus outline */
-	border-color: #007bff; /* Change border color on focus */
-	box-shadow: 0 0 8px rgba(0, 123, 255, 0.25); /* Shadow to indicate focus */
+input[type="email"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
 }
 
 input[type="submit"] {
-	width: 100%; /* Ensure button takes full width of the container */
-	padding: 15px; /* Padding inside the button */
-	font-size: 18px; /* Larger font size for button text */
-	border: 1px solid #007bff; /* Blue border color */
-	background-color: #007bff; /* Blue background color */
-	color: white; /* White text color */
-	border-radius: 4px; /* Rounded corners for the button */
-	cursor: pointer; /* Pointer cursor to indicate it's clickable */
-	transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition on hover */
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 input[type="submit"]:hover {
-	background-color: #0056b3; /* Darker blue on hover */
-	border-color: #0056b3;
+  background-color: #0056b3;
+  border-color: #0056b3;
 }
 
 div p {
-	color: #d9534f; /* Red color for error messages */
-	font-size: 16px; /* Font size for error messages */
-	margin-bottom: 20px; /* Space below error messages */
-	text-align: center; /* Center align error messages */
+  color: #d9534f;
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 label {
-	font-size: 16px; /* Font size for labels */
-	display: block; /* Ensure labels are block elements for proper spacing */
-	margin-bottom: 8px; /* Space between label and input field */
-	color: #333; /* Darker text color for labels */
+  font-size: 16px;
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
 }
 
 label a {
-	color: #007bff; /* Blue color for links */
-	text-decoration: none; /* Remove underline from links */
+  color: #007bff;
+  text-decoration: none;
 }
 
 label a:hover {
-	text-decoration: underline; /* Underline on hover for links */
+  text-decoration: underline;
 }

@@ -20,14 +20,13 @@ public class Comment {
 	private Long id;
 
 	private String name;
-
 	private String email;
 
 	@Column(name = "content", columnDefinition = "TEXT")
 	private String content;
 
 	@ManyToOne
-	@JoinColumn(name = "post_comments")
+	@JoinColumn(name = "post_comments",nullable = false)
 	private Post post;
 
 	@Column(name = "created_at")

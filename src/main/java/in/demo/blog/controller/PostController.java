@@ -1,6 +1,11 @@
 package in.demo.blog.controller;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import in.demo.blog.entity.Post;
 import in.demo.blog.entity.User;
+import in.demo.blog.repository.TagRepository;
 import in.demo.blog.service.PostService;
 import in.demo.blog.service.UserService;
 
@@ -25,6 +31,9 @@ public class PostController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private TagRepository tagRepository;
+
 	@GetMapping("/home-page")
 	public String showHomePage(
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
@@ -34,6 +43,14 @@ public class PostController {
 			Model model) {
 
 		postService.viewHomePage(pageNumber, pageSize, sortField, sortDirection, model);
+		
+		
+		Set<User> listOfUsers=new HashSet<>();
+		for (Post post : postService.findAll()) {
+			listOfUsers.add(post.getAuthor());
+		}
+		model.addAttribute("authors", listOfUsers);
+		model.addAttribute("tagList", tagRepository.findAll());
 
 		return "home-page";
 	}
@@ -42,16 +59,6 @@ public class PostController {
 	public String getLoginPage() {
 		return "login-page";
 	}
-
-//	@PostMapping("/login-page")
-//	public String handleLoginPage() {
-//		return "login-page";
-//	}
-
-//    @PostMapping("/register-page")
-//    public String handleRegisterPage() {
-//        return "register-page";
-//    }
 
 	@GetMapping("/post/{id}")
 	public String viewPost(@PathVariable("id") Long postId, Model model) {
@@ -64,24 +71,23 @@ public class PostController {
 	public String addPost(Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
 		Post post = new Post();
-
 		String currentUserEmail = userDetails.getUsername();
 		User currentUser = userService.findByEmail(currentUserEmail);
 
-		post.setAuthor(currentUser.getName());
+		post.setAuthor(currentUser);
 		model.addAttribute("post", post);
+		model.addAttribute("currentUserName", currentUser.getName());
 		return "create-post-page";
 	}
 
 	@PostMapping("/save-post")
 	public String savePost(@RequestParam("tagsList") String tagsList, @ModelAttribute("post") Post post,
-			@AuthenticationPrincipal UserDetails userDetails, Model model) {
+			@RequestParam("authorName") String authorName, @AuthenticationPrincipal UserDetails userDetails,
+			Model model) {
 
 		String currentUserEmail = userDetails.getUsername();
 		User currentUser = userService.findByEmail(currentUserEmail);
-
-		post.setAuthor(currentUser.getName());
-
+		post.setAuthor(currentUser);
 		postService.savePost(post, tagsList);
 		return "redirect:/home-page";
 	}
@@ -95,7 +101,6 @@ public class PostController {
 		User currentUser = userService.findByEmail(currentUserEmail);
 
 		if (!post.getAuthor().equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")) {
-//			redirect to error page
 			return "temp";
 		}
 
@@ -116,8 +121,6 @@ public class PostController {
 		if (!currentPost.getAuthor().equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")) {
 			return "temp";
 		}
-
-//		postService.updatePost(postId, post,tags);
 		postService.updatePost(postId, post);
 		return "redirect:/post/" + postId;
 	}
@@ -130,7 +133,8 @@ public class PostController {
 
 		Post post = postService.getPostById(postId);
 
-		if (!post.getAuthor().equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN") && !currentUser.getUserRole().equals("AUTHOR"))  {
+		if (!post.getAuthor().equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")
+				&& !currentUser.getUserRole().equals("AUTHOR")) {
 			return "temp";
 		}
 
@@ -151,16 +155,22 @@ public class PostController {
 		return "home-page";
 	}
 
-//    @GetMapping("/filter")
-//    public String filterPosts(@RequestParam(value = "author", required = false) String author,
-//                              @RequestParam(value = "publishedDate", required = false) String publishedDate,
-//                              @RequestParam(value = "tags", required = false) String tags,
-//                              Model model) {
-//        List<Post> filteredPosts = postService.filterPosts(author, publishedDate, tags);
-//        model.addAttribute("postlist", filteredPosts);
-//        model.addAttribute("author", author);
-//        model.addAttribute("publishedDate", publishedDate);
-//        model.addAttribute("tags", tags);
-//        return "post-list";
-//    }
+	@GetMapping("/filter")
+	public String filterPosts(@RequestParam(value = "author", required = false) List<String> authors,
+			@RequestParam(value = "publishedAt", required = false) String publishedDate,
+			@RequestParam(value = "tags", required = false) List<String> tagIds,
+			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize, Model model) {
+
+		Page<Post> filteredPosts = postService.filterPosts(authors, tagIds, publishedDate, pageNumber, pageSize);
+		Set<User> listOfUsers=new HashSet<>();
+		for (Post post : postService.findAll()) {
+			listOfUsers.add(post.getAuthor());
+		}
+		model.addAttribute("postlist", filteredPosts.getContent());
+		model.addAttribute("authors", listOfUsers);
+		model.addAttribute("tagList", tagRepository.findAll());
+
+		return "home-page";
+	}
 }

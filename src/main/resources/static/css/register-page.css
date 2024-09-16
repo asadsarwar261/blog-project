@@ -1,75 +1,75 @@
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 body {
-	background-color: #f5f5f5; /* Light background color */
-	color: #333; /* Dark text color for readability */
+  background-color: #f5f5f5;
+  color: #333;
 }
 
 #container {
-	max-width: 500px; /* Maximum width of the container */
-	margin: 40px auto; /* Center the container and provide top/bottom margin */
-	padding: 20px; /* Padding inside the container */
-	background-color: #fff; /* White background for the form */
-	border: 1px solid #ddd; /* Light border for the container */
-	border-radius: 8px; /* Rounded corners */
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #heading {
-	font-size: 24px; /* Font size for the heading */
-	margin-bottom: 20px; /* Space below the heading */
-	text-align: center; /* Center the heading text */
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 form {
-	display: flex;
-	flex-direction: column; /* Arrange form elements vertically */
+  display: flex;
+  flex-direction: column;
 }
 
 input {
-	margin-bottom: 15px; /* Space between form elements */
-	padding: 10px; /* Padding inside input fields */
-	font-size: 16px; /* Font size for input text */
-	border: 1px solid #ccc; /* Border color for input fields */
-	border-radius: 4px; /* Rounded corners for input fields */
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 button {
-	padding: 10px; /* Padding inside the button */
-	font-size: 16px; /* Font size for button text */
-	color: #fff; /* White text color */
-	background-color: #007BFF; /* Primary blue color */
-	border: none; /* Remove default border */
-	border-radius: 4px; /* Rounded corners */
-	cursor: pointer; /* Pointer cursor on hover */
-	transition: background-color 0.3s; /* Smooth transition */
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 button:hover {
-	background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
 #bottom {
-	margin-top: 20px; /* Space above the bottom section */
-	text-align: center; /* Center the text and link */
+  margin-top: 20px;
+  text-align: center;
 }
 
 #bottom p {
-	font-size: 14px; /* Font size for the paragraph text */
-	margin-bottom: 10px; /* Space below the paragraph */
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 #bottom a {
-	color: #007BFF; /* Blue color for the link */
-	text-decoration: none; /* Remove underline from link */
-	font-size: 14px; /* Font size for the link text */
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
 }
 
 #bottom a:hover {
-	text-decoration: underline; /* Underline on hover */
+  text-decoration: underline;
 }

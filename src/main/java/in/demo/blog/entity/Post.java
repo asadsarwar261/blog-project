@@ -25,25 +25,15 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-
 	private String title;
 	private String excerpt;
 
 	@Column(name = "content", columnDefinition = "TEXT")
 	private String content;
 
-//	@ManyToOne
-//	@JoinColumn(name = "author_id", nullable = false)
-//	private User author;
-	private String author;
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+	@ManyToOne
+	@JoinColumn(name = "author_id")
+	private User author;
 
 	@Column(name = "published_at")
 	private LocalDate publishedAt;
@@ -58,21 +48,10 @@ public class Post {
 	private Set<Comment> comments;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "post_tags", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-	private Set<Tag> tags;
-
-//	public Post(String title, String excerpt, String content, User author, LocalDate publishedAt,
-//			LocalDate createdAt, LocalDate updatedAt, Set<Comment> comments, Set<Tag> tags) {
-//		this.title = title;
-//		this.excerpt = excerpt;
-//		this.content = content;
-//		this.author = author;
-//		this.publishedAt = publishedAt;
-//		this.createdAt = createdAt;
-//		this.updatedAt = updatedAt;
-//		this.comments = comments;
-//		this.tags = tags;
-//	}
+	@JoinTable(name = "post_tags", 
+	joinColumns = @JoinColumn(name = "post_id"), 
+	inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	private Set<Tag> tags = new HashSet<>();
 
 	public Post() {
 	}
@@ -109,13 +88,13 @@ public class Post {
 		this.content = content;
 	}
 
-//	public User getAuthor() {
-//		return author;
-//	}
-//
-//	public void setAuthor(User author) {
-//		this.author = author;
-//	}
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
 
 	public LocalDate getPublishedAt() {
 		return publishedAt;
@@ -155,12 +134,5 @@ public class Post {
 
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
-	}
-
-	@Override
-	public String toString() {
-		return "Post [id=" + id + ", title=" + title + ", excerpt=" + excerpt + ", content=" + content + ", author="
-				+ author + ", publishedAt=" + publishedAt + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ ", comments=" + comments + ", tags=" + tags + "]";
 	}
 }
