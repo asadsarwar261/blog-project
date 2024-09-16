@@ -25,18 +25,25 @@
 					<button type="submit">Search</button>
 				</form>
 
-				<form th:action="@{/showLoginPage}" method="get">
-					<input type="submit" value="Login" />
-				</form>
+				<div>
+					<div
+						th:if="${#authentication == null || !#authorization.expression('isAuthenticated()')}">
+						<form th:action="@{/showLoginPage}" method="get">
+							<input type="submit" value="Login" />
+						</form>
 
-				<form th:action="@{/register-page}" method="get">
-					<input type="submit" value="SignUp" />
-				</form>
+						<form th:action="@{/register-page}" method="get">
+							<input type="submit" value="SignUp" />
+						</form>
+					</div>
 
-				<!-- Logout option -->
-				<form th:action="@{/logout}" method="post">
-					<input type="submit" value="Logout" />
-				</form>
+					<!-- Logout option -->
+					<div th:if="${#authorization.expression('isAuthenticated()')}">
+						<form th:action="@{/logout}" method="post">
+							<input type="submit" value="Logout" />
+						</form>
+					</div>
+				</div>
 			</div>
 
 
@@ -53,20 +60,20 @@
 
 							<div class="checkbox-container">
 								<div th:each="user : ${authors}">
-									<label> 
-									<input type="checkbox" name="author" th:value="${user.name}"
-										th:text="${user.name}" />
+									<label> <input type="checkbox" name="author"
+										th:value="${user.name}" th:text="${user.name}" />
 									</label>
 								</div>
-							</div>			
+							</div>
 						</details>
 
 						<!-- Published Date Filter Dropdown -->
 						<details>
 							<summary>Published Date</summary>
 							<div class="checkbox-container">
-								<label for="publishedAt"> <input type="date" name="publishedAt"
-									th:value="@{params.publishedAt}"> Select Date
+								<label for="publishedAt"> <input type="date"
+									name="publishedAt" th:value="@{params.publishedAt}">
+									Select Date
 								</label>
 							</div>
 						</details>
@@ -76,8 +83,8 @@
 							<summary>Tags</summary>
 							<div class="checkbox-container">
 								<div th:each="tag : ${tagList}">
-									<label> <input type="checkbox" name="tags" th:value="${tag.name}"
-										th:text="${tag.name}" />
+									<label> <input type="checkbox" name="tags"
+										th:value="${tag.name}" th:text="${tag.name}" />
 									</label>
 								</div>
 							</div>
