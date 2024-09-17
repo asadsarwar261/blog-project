@@ -43,7 +43,7 @@ public class PostController {
 			Model model) {
 
 		postService.viewHomePage(pageNumber, pageSize, sortField, sortDirection, model);
-		Set<User> listOfUsers=new HashSet<>();
+		Set<User> listOfUsers = new HashSet<>();
 		for (Post post : postService.findAll()) {
 			listOfUsers.add(post.getAuthor());
 		}
@@ -72,7 +72,7 @@ public class PostController {
 		String currentUserEmail = userDetails.getUsername();
 		User currentUser = userService.findByEmail(currentUserEmail);
 		post.setAuthor(currentUser);
-		
+
 		model.addAttribute("post", post);
 		model.addAttribute("currentUserName", currentUser.getName());
 		return "create-post-page";
@@ -97,7 +97,7 @@ public class PostController {
 		Post post = postService.getPostById(postId);
 		String currentUserEmail = userDetails.getUsername();
 		User currentUser = userService.findByEmail(currentUserEmail);
-		String postAuthorName=post.getAuthor().getName();
+		String postAuthorName = post.getAuthor().getName();
 		if (!postAuthorName.equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")) {
 			return "temp";
 		}
@@ -105,23 +105,29 @@ public class PostController {
 		model.addAttribute("post", post);
 //		model.addAttribute("tags", tags);
 
+		System.out.println("hello1 ");
+
 		return "edit-post-page";
 	}
 
 	@PostMapping("/update-post/{id}")
 	public String updatePost(@PathVariable("id") Long postId, @ModelAttribute("post") Post post,
-			@AuthenticationPrincipal UserDetails userDetails) {
+			@RequestParam("authorName") String authorName, @AuthenticationPrincipal UserDetails userDetails) {
 
+		System.out.println("helo 2");
 		String currentUserEmail = userDetails.getUsername();
 		User currentUser = userService.findByEmail(currentUserEmail);
 
 		Post currentPost = postService.getPostById(postId);
-		if (!currentPost.getAuthor().equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")) {
-			return "temp";
+
+		if (currentPost != null && (currentPost.getAuthor().getEmail().equals(currentUser.getEmail())
+				|| currentUser.getUserRole().equals("ADMIN"))) {
+
+			postService.updatePost(postId, post, authorName);
+			return "redirect:/post/" + postId;
 		}
-		
-		postService.updatePost(postId, post);
-		return "redirect:/post/" + postId;
+
+		return "temp";
 	}
 
 	@PostMapping("/delete-post/{id}")
@@ -131,7 +137,7 @@ public class PostController {
 		User currentUser = userService.findByEmail(currentUserEmail);
 
 		Post post = postService.getPostById(postId);
-		String postAuthorName=post.getAuthor().getName();
+		String postAuthorName = post.getAuthor().getName();
 		if (!postAuthorName.equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")) {
 			return "temp";
 		}
@@ -161,7 +167,7 @@ public class PostController {
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize, Model model) {
 
 		Page<Post> filteredPosts = postService.filterPosts(authors, tagIds, publishedDate, pageNumber, pageSize);
-		Set<User> listOfUsers=new HashSet<>();
+		Set<User> listOfUsers = new HashSet<>();
 		for (Post post : postService.findAll()) {
 			listOfUsers.add(post.getAuthor());
 		}

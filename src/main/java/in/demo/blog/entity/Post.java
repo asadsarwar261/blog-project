@@ -45,12 +45,10 @@ public class Post {
 	private LocalDate updatedAt;
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	private Set<Comment> comments;
+	private Set<Comment> comments = new HashSet<>();
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "post_tags", 
-	joinColumns = @JoinColumn(name = "post_id"), 
-	inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	@JoinTable(name = "post_tags", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tags = new HashSet<>();
 
 	public Post() {

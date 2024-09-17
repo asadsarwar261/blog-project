@@ -32,6 +32,9 @@ public class PostService {
 	@Autowired
 	private TagRepository tagRepository;
 
+	@Autowired
+	private UserService userService;
+
 	public void viewHomePage(Integer pageNumber, Integer pageSize, String sortField, String sortDirection,
 			Model model) {
 
@@ -100,10 +103,20 @@ public class PostService {
 		postRepository.deleteById(postId);
 	}
 
+	public void searchOperation(String searchQuery, Model model, int pageNumber, int pageSize) {
+
+		Page<Post> postPage = findPage(searchQuery, pageNumber, pageSize);
+		model.addAttribute("postlist", postPage.getContent());
+		model.addAttribute("currentPage", pageNumber);
+		model.addAttribute("totalNumberOfPages", postPage.getTotalPages());
+		model.addAttribute("pageSize", pageSize);
+	}
+
 	public Page<Post> findPage(String searchQuery, int pageNumber, int pageSize) {
 
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		Set<Post> setOfPosts = new HashSet<>();
+//		here is an issue with the custom method naming
 		setOfPosts.addAll(postRepository.findByTitleContainingIgnoreCase(searchQuery, pageable));
 		setOfPosts.addAll(postRepository.findByAuthorContainingIgnoreCase(searchQuery, pageable));
 		setOfPosts.addAll(postRepository.findByTagsNameContainingIgnoreCase(searchQuery, pageable));
@@ -116,15 +129,6 @@ public class PostService {
 		List<Post> paginatedPosts = combinedPostList.subList(start, end);
 
 		return new PageImpl<>(paginatedPosts, pageable, combinedPostList.size());
-	}
-
-	public void searchOperation(String searchQuery, Model model, int pageNumber, int pageSize) {
-
-		Page<Post> postPage = findPage(searchQuery, pageNumber, pageSize);
-		model.addAttribute("postlist", postPage.getContent());
-		model.addAttribute("currentPage", pageNumber);
-		model.addAttribute("totalNumberOfPages", postPage.getTotalPages());
-		model.addAttribute("pageSize", pageSize);
 	}
 
 	public Page<Post> filterPosts(List<String> authors, List<String> tagIds, String date, Integer pageNumber,
@@ -154,7 +158,7 @@ public class PostService {
 		return (int) Math.ceil((double) findPage(searchQuery, 0, 10).getSize() / 10);
 	}
 
-	public Post updatePost(Long postId, Post updatedPost) {
+	public Post updatePost(Long postId, Post updatedPost, String authorName) {
 //		StringBuilder listOfTagInString = new StringBuilder();
 //		for (Tag tag : tags) {
 //			listOfTagInString.append(tag.getName()).append(",");
@@ -163,12 +167,19 @@ public class PostService {
 //		String listOfTagString = listOfTagInString.toString();
 
 		Post existingPost = getPostById(postId);
+
 		if (existingPost != null) {
 			existingPost.setTitle(updatedPost.getTitle());
 			existingPost.setExcerpt(updatedPost.getExcerpt());
 			existingPost.setContent(updatedPost.getContent());
-			existingPost.setAuthor(updatedPost.getAuthor());
 			existingPost.setUpdatedAt(LocalDate.now());
+
+			if (authorName != null && !authorName.isEmpty()) {
+				User author = userService.findUserByAuthorName(authorName);
+				if (author != null) {
+					existingPost.setAuthor(author);
+				}
+			}
 
 			// Handle tags
 //            Set<Tag> listOfTags = parseTags(tags);

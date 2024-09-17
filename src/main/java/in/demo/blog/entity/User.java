@@ -1,5 +1,6 @@
 package in.demo.blog.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -26,7 +27,7 @@ public class User {
 	String userRole;
 
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-	private Set<Post> posts;
+	private Set<Post> posts=new HashSet<>();
 
 	public User() {
 	}
