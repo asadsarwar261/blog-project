@@ -44,7 +44,7 @@ public class CommentController {
 	@GetMapping("/update-comment/{id}")
 	public String updateCommentHandler(@PathVariable("id") Long commentId, @RequestParam("postId") Long postId,
 			@AuthenticationPrincipal UserDetails userDetails, Model model) {
-		
+
 		Comment comment = commentService.findCommentById(commentId);
 		String currentUserEmail = userDetails.getUsername();
 		User currentUser = userService.findByEmail(currentUserEmail);

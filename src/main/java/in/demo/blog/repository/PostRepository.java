@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import in.demo.blog.entity.Post;
-import in.demo.blog.entity.Tag;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
@@ -33,7 +32,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 	List<Post> findByAuthorInAndTagsIdIn(Set<String> authorNames, Set<Long> tagIds);
 
-	
 	Page<Post> findByTagsNameInAndPublishedAtAndAuthorNameIn(List<String> tagId, LocalDate publishedDate,
 			List<String> author, Pageable pageable);
 
@@ -41,6 +39,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 	Page<Post> findByPublishedAt(LocalDate publishedDate, Pageable pageable);
 
-	Page<Post> findByAuthorNameIn(List<String> author, Pageable pageable);	
-	
+	Page<Post> findByAuthorNameIn(List<String> author, Pageable pageable);
+
 }

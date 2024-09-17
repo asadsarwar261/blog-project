@@ -15,9 +15,9 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/")
-    public String firstPage() {
-        return "redirect:/home-page";
-    }
+	public String firstPage() {
+		return "redirect:/home-page";
+	}
 
 	@GetMapping("/register-page")
 	public String getRegisterPage() {
