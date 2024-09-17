@@ -34,10 +34,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 	List<Post> findByAuthorInAndTagsIdIn(Set<String> authorNames, Set<Long> tagIds);
 
 	
-	
-	
-	
-	
 	Page<Post> findByTagsNameInAndPublishedAtAndAuthorNameIn(List<String> tagId, LocalDate publishedDate,
 			List<String> author, Pageable pageable);
 

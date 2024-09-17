@@ -26,11 +26,8 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
     
-    
-	
     public User findUserByAuthorName(String authorName) {
         return userRepository.findUserByName(authorName);
     }
-	
 	
 }

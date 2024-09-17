@@ -43,7 +43,6 @@ public class PostController {
 			Model model) {
 
 		postService.viewHomePage(pageNumber, pageSize, sortField, sortDirection, model);
-		
 		Set<User> listOfUsers=new HashSet<>();
 		for (Post post : postService.findAll()) {
 			listOfUsers.add(post.getAuthor());
@@ -72,8 +71,8 @@ public class PostController {
 		Post post = new Post();
 		String currentUserEmail = userDetails.getUsername();
 		User currentUser = userService.findByEmail(currentUserEmail);
-
 		post.setAuthor(currentUser);
+		
 		model.addAttribute("post", post);
 		model.addAttribute("currentUserName", currentUser.getName());
 		return "create-post-page";
@@ -98,8 +97,8 @@ public class PostController {
 		Post post = postService.getPostById(postId);
 		String currentUserEmail = userDetails.getUsername();
 		User currentUser = userService.findByEmail(currentUserEmail);
-
-		if (!post.getAuthor().equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")) {
+		String postAuthorName=post.getAuthor().getName();
+		if (!postAuthorName.equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")) {
 			return "temp";
 		}
 
@@ -120,6 +119,7 @@ public class PostController {
 		if (!currentPost.getAuthor().equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")) {
 			return "temp";
 		}
+		
 		postService.updatePost(postId, post);
 		return "redirect:/post/" + postId;
 	}
@@ -131,9 +131,8 @@ public class PostController {
 		User currentUser = userService.findByEmail(currentUserEmail);
 
 		Post post = postService.getPostById(postId);
-
-		if (!post.getAuthor().equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")
-				&& !currentUser.getUserRole().equals("AUTHOR")) {
+		String postAuthorName=post.getAuthor().getName();
+		if (!postAuthorName.equals(currentUser.getName()) && !currentUser.getUserRole().equals("ADMIN")) {
 			return "temp";
 		}
 
