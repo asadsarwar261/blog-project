@@ -104,9 +104,6 @@ public class PostController {
 
 		model.addAttribute("post", post);
 //		model.addAttribute("tags", tags);
-
-		System.out.println("hello1 ");
-
 		return "edit-post-page";
 	}
 
@@ -114,7 +111,6 @@ public class PostController {
 	public String updatePost(@PathVariable("id") Long postId, @ModelAttribute("post") Post post,
 			@RequestParam("authorName") String authorName, @AuthenticationPrincipal UserDetails userDetails) {
 
-		System.out.println("helo 2");
 		String currentUserEmail = userDetails.getUsername();
 		User currentUser = userService.findByEmail(currentUserEmail);
 
