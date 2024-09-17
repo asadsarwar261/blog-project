@@ -2,6 +2,7 @@ package in.demo.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import in.demo.blog.entity.User;
 import in.demo.blog.repository.UserRepository;
 
