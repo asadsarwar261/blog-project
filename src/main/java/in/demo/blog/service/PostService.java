@@ -118,7 +118,7 @@ public class PostService {
 		Set<Post> setOfPosts = new HashSet<>();
 //		here is an issue with the custom method naming
 		setOfPosts.addAll(postRepository.findByTitleContainingIgnoreCase(searchQuery, pageable));
-		setOfPosts.addAll(postRepository.findByAuthorContainingIgnoreCase(searchQuery, pageable));
+		setOfPosts.addAll(postRepository.findByAuthorNameContainingIgnoreCase(searchQuery, pageable));
 		setOfPosts.addAll(postRepository.findByTagsNameContainingIgnoreCase(searchQuery, pageable));
 		setOfPosts.addAll(postRepository.findByContentContainingIgnoreCase(searchQuery, pageable));
 
