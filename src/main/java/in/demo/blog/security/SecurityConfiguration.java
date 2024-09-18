@@ -31,12 +31,11 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-		// Define access rules
 				.authorizeHttpRequests(configurer -> configurer
 						.requestMatchers("/","/post/**", "/css/**", "/register-page", "/view-post-page", "/search",
-								"/filter", "/sort", "/comment-post/**", "/submit-comment","/home-page","/saveUser")
+								"/filter", "/sort", "/comment-post/**", "/submit-comment","/home-page","/saveUser","/posts/**","/comments/**","/users/**")
 						.permitAll()
-						.requestMatchers("/add-post", "/edit-post/**", "/delete-post/**","/save-post/**","/update-post/**").hasAnyAuthority("AUTHOR", "ADMIN")
+						.requestMatchers("/add-post", "/edit-post/**", "/delete-post/**","/save-post/**").hasAnyAuthority("AUTHOR", "ADMIN")
 						.requestMatchers( "/delete-comment/**", "/update-comment/**")
 						.authenticated()
 						.anyRequest().authenticated() 

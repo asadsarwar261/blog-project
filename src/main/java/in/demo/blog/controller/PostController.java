@@ -33,6 +33,12 @@ public class PostController {
 
 	@Autowired
 	private TagRepository tagRepository;
+	
+	
+	@GetMapping("/")
+	public String firstPage() {
+		return "redirect:/home-page";
+	}
 
 	@GetMapping("/home-page")
 	public String showHomePage(

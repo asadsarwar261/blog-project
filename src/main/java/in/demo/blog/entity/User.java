@@ -3,6 +3,8 @@ package in.demo.blog.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,6 +29,7 @@ public class User {
 	String userRole;
 
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+	@JsonBackReference
 	private Set<Post> posts=new HashSet<>();
 
 	public User() {
