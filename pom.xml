@@ -83,9 +83,14 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	
-	
-	
+
+
+
+		<dependency>
+			<groupId>in.mb</groupId>
+			<artifactId>Blog-Application-Project</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 	
 
